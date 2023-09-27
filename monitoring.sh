@@ -77,3 +77,11 @@ else
     echo "Monitoring.service exist"
     sudo chmod +x /etc/systemd/system/monitoring.service
 fi
+
+# To reload and start using service, use following commands in terminal after execution of this script
+# sudo systemctl daemon-reload
+# sudo systemctl enable monitoring.service
+# sudo systemctl start monitoring.service
+
+# To check the status of service, whether it is running or not, use following command:
+# sudo systemctl status monitoring.service
