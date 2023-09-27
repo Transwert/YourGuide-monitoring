@@ -1,0 +1,9 @@
+[Unit]
+Description=Start Prometheus, pushgateway, Grafana Docker Containers
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /home/ubuntu/YourGuide-monitoring/monitoring.sh
+
+[Install]
+WantedBy=multi-user.target
