@@ -17,12 +17,14 @@ if sudo docker ps -a --format '{{.Names}}' | grep -Eq "^${container_name}\$"; th
         sudo docker rm ${container_name}
         sudo docker run -d --name prometheus  \
         -p 9090:9090 \
+        --net=host \
         -v /home/ubuntu/YourGuide-monitoring/prometheus_config.yml:/etc/prometheus/prometheus.yml \
         prom/prometheus
     fi
 else
     sudo docker run -d --name prometheus  \
         -p 9090:9090 \
+        --net=host \
         -v /home/ubuntu/YourGuide-monitoring/prometheus_config.yml:/etc/prometheus/prometheus.yml \
         prom/prometheus
 fi
@@ -37,10 +39,12 @@ if sudo docker ps -a --format '{{.Names}}' | grep -Eq "^${container_name}\$"; th
         echo "But Since it is in exited state, so starting now";
         sudo docker rm ${container_name}
         sudo docker run -d --name ${container_name} \
+            --net=host \
             -p 9091:9091 prom/pushgateway
     fi
 else
     sudo docker run -d --name ${container_name} \
+        --net=host \
         -p 9091:9091 prom/pushgateway
 fi
 
@@ -55,12 +59,14 @@ if sudo docker ps -a --format '{{.Names}}' | grep -Eq "^${container_name}\$"; th
         sudo docker rm ${container_name}
         sudo docker run -d -p 3000:3000 --name=${container_name} \
             --user "$(id -u)" \
+            --net=host \
             --volume /home/ubuntu/YourGuide-monitoring/monitoring_data:/var/lib/grafana \
             grafana/grafana-oss
     fi
 else
     sudo docker run -d -p 3000:3000 --name=${container_name} \
         --user "$(id -u)" \
+        --net=host \
         --volume /home/ubuntu/YourGuide-monitoring/monitoring_data:/var/lib/grafana \
         grafana/grafana-oss
 fi
